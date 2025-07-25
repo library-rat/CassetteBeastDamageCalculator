@@ -1,0 +1,24 @@
+[
+    {
+        "#" :116,
+        "name": "Khepri",
+        "type" :"fire",
+        "maxHP" : 100,
+        "mAtk" : 1,
+        "mDef":	100,
+        "rAtk" : 300,
+        "rDef":	250,
+        "speed": 79
+    },
+    {
+        "#" :29,
+        "name": "Folklord",
+        "type" :"beast",
+        "maxHP" : 140,
+        "mAtk" : 135,
+        "mDef":	135,
+        "rAtk" : 100,
+        "rDef":	120,
+        "speed": 120
+    }
+]

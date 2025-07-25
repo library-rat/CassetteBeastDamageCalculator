@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Beasts' Stat",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "#": { "type": "integer"},
+      "name": { "type": "string" },
+      "type": {
+        "type": "string",
+        "enum": ["beast", "air", "astral", "earth", "fire", "ice", "lightning", "metal", "plant", "plastic", "poison", "water", "glass", "glitter"]
+      },
+      "maxHP": { "type": "integer"},
+      "mAtk": { "type": "integer"},
+      "mDef": { "type": "integer"},
+      "rAtk": { "type": "integer"},
+      "rDef": { "type": "integer"},
+      "speed": { "type": "integer"}
+
+    },
+    "required": ["#","name", "type", "maxHP", "mAtk", "mDef", "rAtk", "rDef", "speed"],
+    "additionalProperties": false
+  }
+}
