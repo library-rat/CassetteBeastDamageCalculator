@@ -6,7 +6,7 @@
 }
 
 body{
-    background: #8a6fa0;
+    background: #d8c9e4;
     color: #333;
 }
 
@@ -34,4 +34,9 @@ input{
     border: 0;
     outline: 0;
     color: #333;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
 }

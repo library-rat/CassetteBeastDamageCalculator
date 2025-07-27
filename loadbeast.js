@@ -1,11 +1,12 @@
 let beastArray;
-
+let beast1;
 fetch('Beast.json')
      .then((response) => response.json())
      .then((json) => beastArray = json);
 
 const resultsBox= document.querySelector(".result-box");
 const inputBox = document.getElementById("input-box");
+const monsterStat = document.getElementById("monster-stat")
 
 inputBox.onkeyup = function(){
     let result = [];
@@ -33,5 +34,30 @@ function display(result){
 
 function selectInput(list){
     inputBox.value = list.innerHTML;
+    beast1 = fetchMonster(list.innerHTML);
     resultsBox.innerHTML = '';
+    updateMonsterStat(beast1);
+}
+
+function fetchMonster(name){
+    return beastArray.find((monster) => monster.name== name);
+}
+
+function updateMonsterStat(monster){
+    let maxHP = monster.maxHP;
+    let mAtk =monster.mAtk;
+    let mDef = monster.mDef;
+    let rAtk = monster.rAtk;
+    let rDef = monster.rDef;
+    let speed = monster.speed;
+    
+    content = "<input type=\"number\" value=\"" + maxHP+ "\">" +
+    "<input type=\"number\" value=\"" + mAtk+ "\">" +
+    "<input type=\"number\" value=\"" + mDef+ "\">" +
+    "<input type=\"number\" value=\"" + rAtk+ "\">" +
+    "<input type=\"number\" value=\"" + rDef+ "\">" +
+    "<input type=\"number\" value=\"" + speed+ "\">";
+    monsterStat.innerHTML = content;
+    
+    
 }
