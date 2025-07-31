@@ -15,9 +15,9 @@ body{
      
 }
 
-.result-box ul{
-    border-top: 1px solid#999;
-    padding: 15px 10px;
+ .result-box ul{
+/*    border-top: 1px solid#999;
+    padding: 15px 10px; */
 }
 
 .result-box ul li{
@@ -36,7 +36,7 @@ input{
     color: #333;
 }
 
-.column{
+/* .column{
     display: flex;
     flex-direction: column;
-}
+} */
