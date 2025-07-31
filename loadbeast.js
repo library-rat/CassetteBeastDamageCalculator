@@ -4,13 +4,17 @@ fetch('Beast.json')
      .then((response) => response.json())
      .then((json) => beastArray = json);
 
-const resultsBox= document.querySelector(".result-box");
-const inputBox = document.getElementById("input-box");
-const monsterStat = document.getElementById("monster-stat")
+const resultsBoxBeast1= document.querySelector(".result-box-beast1");
+const inputBoxBeast1 = document.getElementById("input-box-beast1");
+const beastStat1 = document.getElementById("beast1-stat")
+const resultsBoxBeast2= document.querySelector(".result-box-beast2");
+const inputBoxBeast2 = document.getElementById("input-box-beast2");
+const beastStat2 = document.getElementById("beast2-stat")
 
-inputBox.onkeyup = function(){
+
+inputBoxBeast1.onkeyup = function(){
     let result = [];
-    let input = inputBox.value;
+    let input = inputBoxBeast1.value;
     console.log(input.length);
     if(input.length){
         console.log(beastArray);
@@ -21,29 +25,56 @@ inputBox.onkeyup = function(){
         })
         //console.log(result); 
     }
-    display(result);
+    display(result,resultsBoxBeast1);
 }
 
-function display(result){
-    const content = result.map((list)=>{
-        return "<li onclick=selectInput(this)>" + list.name + "</li>";
-    });
+inputBoxBeast2.onkeyup = function(){
+    let result = [];
+    let input = inputBoxBeast2.value;
+    if(input.length){
+        console.log(beastArray);
 
-    resultsBox.innerHTML = "<ul>" + content.join('') + "</ul>";
+        result = beastArray.filter(function(element){
+            return element.name.toLowerCase().includes(input);
+        })
+    }
+    display(result,resultsBoxBeast2);
 }
 
-function selectInput(list){
-    inputBox.value = list.innerHTML;
-    beast1 = fetchMonster(list.innerHTML);
-    resultsBox.innerHTML = '';
-    updateMonsterStat(beast1);
+function display(result, resultsBoxUI){
+    let beastnum = (resultsBoxUI == resultsBoxBeast1) ? 1 : (resultsBoxUI == resultsBoxBeast2) ? 2:  -1 ;
+    resultsBoxUI.innerHTML = '';
+    result.forEach((element) => {
+        const li = document.createElement("li");
+        li.textContent = element.name;
+        li.addEventListener("click", () => selectInput(element, beastnum));
+        resultsBoxUI.appendChild(li)
+    })
+
+}
+
+function selectInput(beast, beastnum){
+    
+    if(beastnum == 1){
+        beast1 = beast;
+        inputBoxBeast1.value = beast.name;
+        resultsBoxBeast1.innerHTML = '';
+        updateMonsterStat(beast1, beastStat1);
+
+    }else if(beastnum == 2){
+        beast2 = beast;
+        inputBoxBeast2.value = beast.name;
+        resultsBoxBeast2.innerHTML = '';
+        updateMonsterStat(beast2, beastStat2);
+
+    }
 }
 
 function fetchMonster(name){
     return beastArray.find((monster) => monster.name== name);
 }
 
-function updateMonsterStat(monster){
+function updateMonsterStat(monster, displayUI){
     let maxHP = monster.maxHP;
     let mAtk =monster.mAtk;
     let mDef = monster.mDef;
@@ -57,7 +88,7 @@ function updateMonsterStat(monster){
     "<input type=\"number\" value=\"" + rAtk+ "\">" +
     "<input type=\"number\" value=\"" + rDef+ "\">" +
     "<input type=\"number\" value=\"" + speed+ "\">";
-    monsterStat.innerHTML = content;
+    displayUI.innerHTML = content;
     
     
 }
