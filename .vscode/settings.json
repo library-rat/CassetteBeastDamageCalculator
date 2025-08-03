@@ -2,7 +2,11 @@
   "json.schemas": [
     {
       "fileMatch": ["Beast.json"],
-      "url": "./schema.json"
+      "url": "./beastSchema.json"
+    },
+    {
+      "fileMatch": ["Character.json"],
+      "url": "/characterSchema.json"
     }
   ]
 }

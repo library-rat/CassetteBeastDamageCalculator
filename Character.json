@@ -1,0 +1,92 @@
+[
+    {
+        "name": "Player",
+        "maxHP" : 120,
+        "mAtk" : 100,
+        "mDef":	100,
+        "rAtk" : 100,
+        "rDef":	100,
+        "speed": 100
+    },
+    {
+        "name": "Kayleigh",
+        "maxHP" : 144,
+        "mAtk" : 100,
+        "mDef":	100,
+        "rAtk" : 100,
+        "rDef":	100,
+        "speed": 100
+    },
+    {
+        "name": "Meredith",
+        "maxHP" : 120,
+        "mAtk" : 120,
+        "mDef":	100,
+        "rAtk" : 100,
+        "rDef":	100,
+        "speed": 100
+    },
+    {
+        "name": "Felix",
+        "maxHP" : 120,
+        "mAtk" : 100,
+        "mDef":	120,
+        "rAtk" : 100,
+        "rDef":	100,
+        "speed": 100
+    },
+    {
+        "name": "Viola",
+        "maxHP" : 120,
+        "mAtk" : 100,
+        "mDef":	100,
+        "rAtk" : 120,
+        "rDef":	100,
+        "speed": 100
+    },
+    {
+        "name": "Eugene",
+        "maxHP" : 120,
+        "mAtk" : 100,
+        "mDef":	100,
+        "rAtk" : 100,
+        "rDef":	120,
+        "speed": 100
+    },
+    {
+        "name": "Barkley",
+        "maxHP" : 120,
+        "mAtk" : 100,
+        "mDef":	100,
+        "rAtk" : 100,
+        "rDef":	100,
+        "speed": 120
+    },
+    {
+        "name": "Sunny",
+        "maxHP" : 110,
+        "mAtk" : 115,
+        "mDef":	110,
+        "rAtk" : 105,
+        "rDef":	95,
+        "speed": 105
+    },
+    {
+        "name": "Wild Monster",
+        "maxHP" : 100,
+        "mAtk" : 100,
+        "mDef":	100,
+        "rAtk" : 100,
+        "rDef":	100,
+        "speed": 100
+    },
+    {
+        "name": "Captain",
+        "maxHP" : 240,
+        "mAtk" : 100,
+        "mDef":	100,
+        "rAtk" : 100,
+        "rDef":	100,
+        "speed": 100
+    }
+]
