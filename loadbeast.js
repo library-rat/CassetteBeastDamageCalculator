@@ -1,10 +1,11 @@
 let characterArray; //contains all playable characters
 let beastArray; //contains all playable beasts
 let character1; //reference to the playable character of j1
+let stat1; //reference to total stat on slot 1
 let beast1; //reference to the beast used by j1
 let character2; // reference to the playable character of j2
 let beast2; //reference to the beast used by j2
-
+let stat2;//reference to total stat on slot 2
 
 
 fetch('Beast.json') //load all the beasts
@@ -21,12 +22,14 @@ const characterStat1 = document.getElementById("character1-stat"); //Stats of th
 const resultsBoxBeast1= document.querySelector(".result-box-beast1"); //autocompletion suggestions box
 const inputBoxBeast1 = document.getElementById("input-box-beast1");//input for character
 const beastStat1 = document.getElementById("beast1-stat");//Stats of the player
+const totalStat1 = document.getElementById("total1-stat")//Total Stat of player1
 const resultsBoxCharacter2 = document.querySelector(".result-box-character2"); //autocompletion suggestions box
 const inputBoxCharacter2 = document.getElementById("input-box-character2");//input for character
 const characterStat2 = document.getElementById("character2-stat");//Stats of the player
 const resultsBoxBeast2= document.querySelector(".result-box-beast2"); //autocompletion suggestions box
 const inputBoxBeast2 = document.getElementById("input-box-beast2");//input for character
 const beastStat2 = document.getElementById("beast2-stat")//Stats of the player
+const totalStat2 = document.getElementById("total2-stat")//Total Stat of player1
 
 inputBoxCharacter1.addEventListener("keyup", () => onInputText(inputBoxCharacter1,resultsBoxCharacter1, true));
 
@@ -110,30 +113,29 @@ function fetchMonster(name){
 }
 
 function updateMonsterStat(monster, displayUI){
-    let maxHP = monster.maxHP;
-    let mAtk =monster.mAtk;
-    let mDef = monster.mDef;
-    let rAtk = monster.rAtk;
-    let rDef = monster.rDef;
-    let speed = monster.speed;
-    displayUI.innerHTML = '';
-    for (let stat in monster){
-        const input = document.createElement('input');
-        input.type = 'number';
-        input.value = monster[stat];
-        input.dataset.stat = stat;
-
-        input.addEventListener('input',(entry) => {
-            monster[stat] = parseInt(entry.target.value, 10);
-        })
-        displayUI.appendChild(input);
+    for (let stat in monster) {
+        let input = displayUI.querySelector(`input[data-stat="${stat}"]`);
+        if(input){
+            input.value = monster[stat];
+        }
     }
+    //displayUI.innerHTML = '';
+    
+    // for (let stat in monster){
+    //     const input = document.createElement('input');
+    //     input.type = 'number';
+    //     input.value = monster[stat];
+    //     input.dataset.stat = stat;
 
-    // content = "<input type=\"number\" value=\"" + maxHP+ "\">" +
-    // "<input type=\"number\" value=\"" + mAtk+ "\">" +
-    // "<input type=\"number\" value=\"" + mDef+ "\">" +
-    // "<input type=\"number\" value=\"" + rAtk+ "\">" +
-    // "<input type=\"number\" value=\"" + rDef+ "\">" +
-    // "<input type=\"number\" value=\"" + speed+ "\">";
-    // displayUI.innerHTML = content;   
+    //     input.addEventListener('input',(entry) => {
+    //         monster[stat] = parseInt(entry.target.value, 10);
+    //     })
+    //     displayUI.appendChild(input);
+    // }
+}
+
+function calculatePlayerStats(){
+    if(character1 && beast1){
+        totalStat1
+    }
 }
