@@ -1,32 +1,32 @@
-let characterArray;
-let beastArray;
-let character1;
-let beast1;
-let character2;
-let beast2;
+let characterArray; //contains all playable characters
+let beastArray; //contains all playable beasts
+let character1; //reference to the playable character of j1
+let beast1; //reference to the beast used by j1
+let character2; // reference to the playable character of j2
+let beast2; //reference to the beast used by j2
 
 
 
-fetch('Beast.json')
+fetch('Beast.json') //load all the beasts
      .then((response) => response.json())
      .then((json) => beastArray = json);
 
-fetch('Character.json')
+fetch('Character.json')//load all the playable character
      .then((response) => response.json())
      .then((json) => characterArray = json)
 
-const resultsBoxCharacter1 = document.querySelector(".result-box-character1");
-const inputBoxCharacter1 = document.getElementById("input-box-character1");
-const characterStat1 = document.getElementById("character1-stat");
-const resultsBoxBeast1= document.querySelector(".result-box-beast1");
-const inputBoxBeast1 = document.getElementById("input-box-beast1");
-const beastStat1 = document.getElementById("beast1-stat");
-const resultsBoxCharacter2 = document.querySelector(".result-box-character2");
-const inputBoxCharacter2 = document.getElementById("input-box-character2");
-const characterStat2 = document.getElementById("character2-stat");
-const resultsBoxBeast2= document.querySelector(".result-box-beast2");
-const inputBoxBeast2 = document.getElementById("input-box-beast2");
-const beastStat2 = document.getElementById("beast2-stat")
+const resultsBoxCharacter1 = document.querySelector(".result-box-character1"); //autocompletion suggestions box
+const inputBoxCharacter1 = document.getElementById("input-box-character1"); //input for character
+const characterStat1 = document.getElementById("character1-stat"); //Stats of the player
+const resultsBoxBeast1= document.querySelector(".result-box-beast1"); //autocompletion suggestions box
+const inputBoxBeast1 = document.getElementById("input-box-beast1");//input for character
+const beastStat1 = document.getElementById("beast1-stat");//Stats of the player
+const resultsBoxCharacter2 = document.querySelector(".result-box-character2"); //autocompletion suggestions box
+const inputBoxCharacter2 = document.getElementById("input-box-character2");//input for character
+const characterStat2 = document.getElementById("character2-stat");//Stats of the player
+const resultsBoxBeast2= document.querySelector(".result-box-beast2"); //autocompletion suggestions box
+const inputBoxBeast2 = document.getElementById("input-box-beast2");//input for character
+const beastStat2 = document.getElementById("beast2-stat")//Stats of the player
 
 inputBoxCharacter1.addEventListener("keyup", () => onInputText(inputBoxCharacter1,resultsBoxCharacter1, true));
 
@@ -36,7 +36,7 @@ inputBoxCharacter2.addEventListener("keyup", ()=> onInputText(inputBoxCharacter2
 
 inputBoxBeast2.addEventListener("keyup", () => onInputText(inputBoxBeast2,resultsBoxBeast2,false));
 
-function onInputText(inputBox, resultsBox, isCharacter){
+function onInputText(inputBox, resultsBox, isCharacter){//when a character is type on the input call the display funtion with the list suggestion
     let result = [];
     let input = inputBox.value;
     console.log(input.length);
@@ -59,7 +59,7 @@ function onInputText(inputBox, resultsBox, isCharacter){
 }
 
 
-function display(result, resultsBoxUI, isCharacter){
+function display(result, resultsBoxUI, isCharacter){//display the list of suggestion for the input
     let num;
     if(!isCharacter){
         num = (resultsBoxUI == resultsBoxBeast1) ? 1 : (resultsBoxUI == resultsBoxBeast2) ? 2:  -1 ;
@@ -75,7 +75,7 @@ function display(result, resultsBoxUI, isCharacter){
     })
 }
 
-function selectInput(monster, num, isCharacter){
+function selectInput(monster, num, isCharacter){//Set input to the selected suggestion
     
     if (isCharacter){
         if(num == 1){
@@ -116,12 +116,24 @@ function updateMonsterStat(monster, displayUI){
     let rAtk = monster.rAtk;
     let rDef = monster.rDef;
     let speed = monster.speed;
-    
-    content = "<input type=\"number\" value=\"" + maxHP+ "\">" +
-    "<input type=\"number\" value=\"" + mAtk+ "\">" +
-    "<input type=\"number\" value=\"" + mDef+ "\">" +
-    "<input type=\"number\" value=\"" + rAtk+ "\">" +
-    "<input type=\"number\" value=\"" + rDef+ "\">" +
-    "<input type=\"number\" value=\"" + speed+ "\">";
-    displayUI.innerHTML = content;   
+    displayUI.innerHTML = '';
+    for (let stat in monster){
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.value = monster[stat];
+        input.dataset.stat = stat;
+
+        input.addEventListener('input',(entry) => {
+            monster[stat] = parseInt(entry.target.value, 10);
+        })
+        displayUI.appendChild(input);
+    }
+
+    // content = "<input type=\"number\" value=\"" + maxHP+ "\">" +
+    // "<input type=\"number\" value=\"" + mAtk+ "\">" +
+    // "<input type=\"number\" value=\"" + mDef+ "\">" +
+    // "<input type=\"number\" value=\"" + rAtk+ "\">" +
+    // "<input type=\"number\" value=\"" + rDef+ "\">" +
+    // "<input type=\"number\" value=\"" + speed+ "\">";
+    // displayUI.innerHTML = content;   
 }
