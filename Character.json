@@ -1,92 +1,112 @@
 [
     {
         "name": "Player",
+        "level": 200,
         "maxHP" : 120,
         "mAtk" : 100,
         "mDef":	100,
         "rAtk" : 100,
         "rDef":	100,
-        "speed": 100
+        "speed": 100,
+        "signature": false
     },
     {
         "name": "Kayleigh",
+        "level": 200,
         "maxHP" : 144,
         "mAtk" : 100,
         "mDef":	100,
         "rAtk" : 100,
         "rDef":	100,
-        "speed": 100
+        "speed": 100,
+        "signature": false
     },
     {
         "name": "Meredith",
+        "level": 200,
         "maxHP" : 120,
         "mAtk" : 120,
         "mDef":	100,
         "rAtk" : 100,
         "rDef":	100,
-        "speed": 100
+        "speed": 100,
+        "signature": false
     },
     {
         "name": "Felix",
+        "level": 200,
         "maxHP" : 120,
         "mAtk" : 100,
         "mDef":	120,
         "rAtk" : 100,
         "rDef":	100,
-        "speed": 100
+        "speed": 100,
+        "signature": false
     },
     {
         "name": "Viola",
+        "level": 200,
         "maxHP" : 120,
         "mAtk" : 100,
         "mDef":	100,
         "rAtk" : 120,
         "rDef":	100,
-        "speed": 100
+        "speed": 100,
+        "signature": false
     },
     {
         "name": "Eugene",
+        "level": 200,
         "maxHP" : 120,
         "mAtk" : 100,
         "mDef":	100,
         "rAtk" : 100,
         "rDef":	120,
-        "speed": 100
+        "speed": 100,
+        "signature": false
     },
     {
         "name": "Barkley",
+        "level": 200,
         "maxHP" : 120,
         "mAtk" : 100,
         "mDef":	100,
         "rAtk" : 100,
         "rDef":	100,
-        "speed": 120
+        "speed": 120,
+        "signature": false
     },
     {
         "name": "Sunny",
+        "level": 200,
         "maxHP" : 110,
         "mAtk" : 115,
         "mDef":	110,
         "rAtk" : 105,
         "rDef":	95,
-        "speed": 105
+        "speed": 105,
+        "signature": false
     },
     {
         "name": "Wild Monster",
+        "level": 200,
         "maxHP" : 100,
         "mAtk" : 100,
         "mDef":	100,
         "rAtk" : 100,
         "rDef":	100,
-        "speed": 100
+        "speed": 100,
+        "signature": false
     },
     {
         "name": "Captain",
+        "level": 200,
         "maxHP" : 240,
         "mAtk" : 100,
         "mDef":	100,
         "rAtk" : 100,
         "rDef":	100,
-        "speed": 100
+        "speed": 100,
+        "signature": false
     }
 ]

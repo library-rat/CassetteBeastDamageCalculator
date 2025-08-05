@@ -6,15 +6,16 @@
     "type": "object",
     "properties": {
       "name": { "type": "string" },
+      "level": {"type":"integer"},
       "maxHP": { "type": "integer"},
       "mAtk": { "type": "integer"},
       "mDef": { "type": "integer"},
       "rAtk": { "type": "integer"},
       "rDef": { "type": "integer"},
-      "speed": { "type": "integer"}
-
+      "speed": { "type": "integer"},
+      "signature": { "type" :"boolean"}
     },
-    "required": ["name","maxHP", "mAtk", "mDef", "rAtk", "rDef", "speed"],
+    "required": ["name","level","maxHP", "mAtk", "mDef", "rAtk", "rDef", "speed","signature"],
     "additionalProperties": false
   }
 }
