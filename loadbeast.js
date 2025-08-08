@@ -138,10 +138,21 @@ function updateMonsterStat(monster, displayUI) {
 function calculatePlayerStats() {
     const stats = ["maxHP", "mAtk", "mDef", "rAtk", "rDef", "speed"];
     if (character1 && beast1) {
-
+        
+        let level;
+        let signature;
+        let temp = characterStat1.querySelector(`input[data-stat=level]`);
+        if (temp) {
+            level = temp.value ;
+        }
+        temp = characterStat1.querySelector(`input[data-stat=signature]`);
+        if (temp) {
+            signature = temp.value ;
+        }
+        
         for (const key of stats) {
             let input = totalStat1.querySelector(`input[data-stat="${key}"]`);
-            input.value = Math.floor(((character1[key] * (1 + character1["signature"]) * beast1[key] * (character1["level"] + 33)) / 5000) + 5);
+            input.value = Math.floor(((character1[key] * (1 + 0.1* signature) * beast1[key] * (level + 33)) / 5000) + 5);
         }
     }
 }
