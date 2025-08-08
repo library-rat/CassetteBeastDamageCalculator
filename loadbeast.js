@@ -39,24 +39,24 @@ inputBoxCharacter2.addEventListener("keyup", () => onInputText(inputBoxCharacter
 
 inputBoxBeast2.addEventListener("keyup", () => onInputText(inputBoxBeast2, resultsBoxBeast2, false));
 
+function initializeListeners(){
+    
+}
+
+
 function onInputText(inputBox, resultsBox, isCharacter) {//when a character is type on the input call the display funtion with the list suggestion
     let result = [];
     let input = inputBox.value;
-    console.log(input.length);
     if (input.length) {
-        console.log(beastArray);
         if (isCharacter) {
             result = characterArray.filter(function (element) {
                 return element.name.toLowerCase().includes(input);
             })
         } else {
             result = beastArray.filter(function (element) {
-                console.log(element.name);
-                console.log(element.name.toLowerCase().includes(input));
                 return element.name.toLowerCase().includes(input);
             })
         }
-        //console.log(result); 
     }
     display(result, resultsBox, isCharacter);
 }
