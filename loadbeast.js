@@ -1,11 +1,12 @@
 let characterArray; //contains all playable characters
 let beastArray; //contains all playable beasts
 let character1; //reference to the playable character of j1
-let stat1; //reference to total stat on slot 1
+let stat1 = {}; //reference to total stat on slot 1
 let beast1; //reference to the beast used by j1
 let character2; // reference to the playable character of j2
 let beast2; //reference to the beast used by j2
-let stat2;//reference to total stat on slot 2
+let stat2 = {};//reference to total stat on slot 2
+
 
 
 fetch('Beast.json') //load all the beasts
@@ -31,6 +32,19 @@ const inputBoxBeast2 = document.getElementById("input-box-beast2");//input for c
 const beastStat2 = document.getElementById("beast2-stat")//Stats of the player
 const totalStat2 = document.getElementById("total2-stat")//Total Stat of player1
 
+const statInputType = {
+    character1: 0,
+    character2: 1,
+    beast1: 2,
+    beast2: 3,
+    total1: 4,
+    total2: 5
+}
+
+const statblocks = [characterStat1, characterStat2, beastStat1, beastStat2, totalStat1, totalStat2]; //elements inside should be UI matching the statInputType
+const statObjects = [character1, character2, beast1, beast2, stat1, stat2]; //elements inside should be the objects containing the stats
+
+
 inputBoxCharacter1.addEventListener("keyup", () => onInputText(inputBoxCharacter1, resultsBoxCharacter1, true));
 
 inputBoxBeast1.addEventListener("keyup", () => onInputText(inputBoxBeast1, resultsBoxBeast1, false));
@@ -39,9 +53,20 @@ inputBoxCharacter2.addEventListener("keyup", () => onInputText(inputBoxCharacter
 
 inputBoxBeast2.addEventListener("keyup", () => onInputText(inputBoxBeast2, resultsBoxBeast2, false));
 
-function initializeListeners(){
-    
+initializeListeners();
+
+function initializeListeners() {
+    const stats = ["maxHP", "mAtk", "mDef", "rAtk", "rDef", "speed"];
+    for (const key of stats) {
+        for (let index = 0; index < Object.keys(statInputType).length; index++) {
+            let inputElt = statblocks[index].querySelector(`input[data-stat="${key}"]`);
+            if (inputElt) {
+                inputElt.addEventListener("keyup", () => onInputStat(key, inputElt, index));
+            }
+        }
+    }
 }
+
 
 
 function onInputText(inputBox, resultsBox, isCharacter) {//when a character is type on the input call the display funtion with the list suggestion
@@ -59,8 +84,26 @@ function onInputText(inputBox, resultsBox, isCharacter) {//when a character is t
         }
     }
     display(result, resultsBox, isCharacter);
+    console.log("character1 :" + JSON.stringify(character1));
+    console.log("beast1 :" + JSON.stringify(beast1));
+    console.log("character2 :" + JSON.stringify(character2));
+    console.log("beast2 :" + JSON.stringify(beast2));
 }
 
+function onInputStat(stat, uiElt, step) {
+    console.log(stat);
+    console.log(uiElt);
+    console.log(step);
+    console.log(statObjects[step]);
+    if(!statObjects[step]){
+        return;
+    }
+    statObjects[step][stat] = uiElt.value;
+    if (step < 4) { //if the modification is on a character or beast recalculate both stat
+        calculatePlayerStats();
+    }
+    calculateDamage();
+}
 
 function display(result, resultsBoxUI, isCharacter) {//display the list of suggestion for the input
     let num;
@@ -85,11 +128,13 @@ function selectInput(monster, num, isCharacter) {//Set input to the selected sug
             character1 = monster;
             inputBoxCharacter1.value = monster.name;
             resultsBoxCharacter1.innerHTML = '';
+            statObjects[statInputType.character1] = monster;
             updateMonsterStat(character1, characterStat1);
         } else if (num == 2) {
             character2 = monster;
             inputBoxCharacter2.value = monster.name;
             resultsBoxCharacter2.innerHTML = '';
+            statObjects[statInputType.character2] = monster;
             updateMonsterStat(character2, characterStat2);
         }
     } else {
@@ -97,11 +142,13 @@ function selectInput(monster, num, isCharacter) {//Set input to the selected sug
             beast1 = monster;
             inputBoxBeast1.value = monster.name;
             resultsBoxBeast1.innerHTML = '';
+            statObjects[statInputType.beast1] = monster;
             updateMonsterStat(beast1, beastStat1);
         } else if (num == 2) {
             beast2 = monster;
             inputBoxBeast2.value = monster.name;
             resultsBoxBeast2.innerHTML = '';
+            statObjects[statInputType.beast2] = monster;
             updateMonsterStat(beast2, beastStat2);
 
         }
@@ -138,21 +185,50 @@ function updateMonsterStat(monster, displayUI) {
 function calculatePlayerStats() {
     const stats = ["maxHP", "mAtk", "mDef", "rAtk", "rDef", "speed"];
     if (character1 && beast1) {
-        
+
         let level;
         let signature;
         let temp = characterStat1.querySelector(`input[data-stat=level]`);
         if (temp) {
-            level = temp.value ;
+            level = temp.value;
         }
         temp = characterStat1.querySelector(`input[data-stat=signature]`);
         if (temp) {
-            signature = temp.value ;
+            signature = temp.value;
         }
-        
+
         for (const key of stats) {
             let input = totalStat1.querySelector(`input[data-stat="${key}"]`);
-            input.value = Math.floor(((character1[key] * (1 + 0.1* signature) * beast1[key] * (level + 33)) / 5000) + 5);
+
+            const calculatedValue = Math.floor(((character1[key] * (1 + 0.1 * signature) * beast1[key] * (level + 33)) / 5000) + 5);
+            input.value = calculatedValue;
+            stat1[key] = calculatedValue;
         }
     }
+
+    if (character2 && beast2) {
+
+        let level;
+        let signature;
+        let temp = characterStat2.querySelector(`input[data-stat=level]`);
+        if (temp) {
+            level = temp.value;
+        }
+        temp = characterStat2.querySelector(`input[data-stat=signature]`);
+        if (temp) {
+            signature = temp.value;
+        }
+
+        for (const key of stats) {
+            let input = totalStat2.querySelector(`input[data-stat="${key}"]`);
+
+            const calculatedValue = Math.floor(((character2[key] * (1 + 0.1 * signature) * beast2[key] * (level + 33)) / 5000) + 5);
+            input.value = calculatedValue;
+            stat2[key] = calculatedValue;
+        }
+    }
+}
+
+function calculateDamage() {
+
 }
