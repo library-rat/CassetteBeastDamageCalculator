@@ -45,24 +45,34 @@ const statblocks = [characterStat1, characterStat2, beastStat1, beastStat2, tota
 const statObjects = [character1, character2, beast1, beast2, stat1, stat2]; //elements inside should be the objects containing the stats
 
 
-inputBoxCharacter1.addEventListener("keyup", () => onInputText(inputBoxCharacter1, resultsBoxCharacter1, true));
+inputBoxCharacter1.addEventListener("input", () => onInputText(inputBoxCharacter1, resultsBoxCharacter1, true));
 
-inputBoxBeast1.addEventListener("keyup", () => onInputText(inputBoxBeast1, resultsBoxBeast1, false));
+inputBoxBeast1.addEventListener("input", () => onInputText(inputBoxBeast1, resultsBoxBeast1, false));
 
-inputBoxCharacter2.addEventListener("keyup", () => onInputText(inputBoxCharacter2, resultsBoxCharacter2, true));
+inputBoxCharacter2.addEventListener("input", () => onInputText(inputBoxCharacter2, resultsBoxCharacter2, true));
 
-inputBoxBeast2.addEventListener("keyup", () => onInputText(inputBoxBeast2, resultsBoxBeast2, false));
+inputBoxBeast2.addEventListener("input", () => onInputText(inputBoxBeast2, resultsBoxBeast2, false));
 
 initializeListeners();
 
 function initializeListeners() {
     const stats = ["maxHP", "mAtk", "mDef", "rAtk", "rDef", "speed"];
-    for (const key of stats) {
-        for (let index = 0; index < Object.keys(statInputType).length; index++) {
+    for (let index = 0; index < Object.keys(statInputType).length; index++) {
+        for (const key of stats) {
+        
             let inputElt = statblocks[index].querySelector(`input[data-stat="${key}"]`);
             if (inputElt) {
-                inputElt.addEventListener("keyup", () => onInputStat(key, inputElt, index));
+                inputElt.addEventListener("input", () => onInputStat(key, inputElt, index));
             }
+        }
+        levelElt = statblocks[index].querySelector(`input[data-stat = level]`);
+        if (levelElt){
+            levelElt.addEventListener("input", () => calculatePlayerStats());
+
+        } 
+        signatureElt = statblocks[index].querySelector(`input[data-stat = signature]`);
+        if (signatureElt){
+            signatureElt.addEventListener("input", () => calculatePlayerStats());
         }
     }
 }
@@ -194,7 +204,7 @@ function calculatePlayerStats() {
         }
         temp = characterStat1.querySelector(`input[data-stat=signature]`);
         if (temp) {
-            signature = temp.value;
+            signature = temp.checked;
         }
 
         for (const key of stats) {
@@ -216,7 +226,7 @@ function calculatePlayerStats() {
         }
         temp = characterStat2.querySelector(`input[data-stat=signature]`);
         if (temp) {
-            signature = temp.value;
+            signature = temp.checked;
         }
 
         for (const key of stats) {
