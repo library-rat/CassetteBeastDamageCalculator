@@ -45,36 +45,46 @@ const statblocks = [characterStat1, characterStat2, beastStat1, beastStat2, tota
 const statObjects = [character1, character2, beast1, beast2, stat1, stat2]; //elements inside should be the objects containing the stats
 
 
-inputBoxCharacter1.addEventListener("input", () => onInputText(inputBoxCharacter1, resultsBoxCharacter1, true));
 
-inputBoxBeast1.addEventListener("input", () => onInputText(inputBoxBeast1, resultsBoxBeast1, false));
-
-inputBoxCharacter2.addEventListener("input", () => onInputText(inputBoxCharacter2, resultsBoxCharacter2, true));
-
-inputBoxBeast2.addEventListener("input", () => onInputText(inputBoxBeast2, resultsBoxBeast2, false));
 
 initializeListeners();
 
 function initializeListeners() {
+
+    inputBoxCharacter1.addEventListener("input", () => onInputText(inputBoxCharacter1, resultsBoxCharacter1, true));
+
+    inputBoxBeast1.addEventListener("input", () => onInputText(inputBoxBeast1, resultsBoxBeast1, false));
+
+    inputBoxCharacter2.addEventListener("input", () => onInputText(inputBoxCharacter2, resultsBoxCharacter2, true));
+
+    inputBoxBeast2.addEventListener("input", () => onInputText(inputBoxBeast2, resultsBoxBeast2, false));
+
     const stats = ["maxHP", "mAtk", "mDef", "rAtk", "rDef", "speed"];
     for (let index = 0; index < Object.keys(statInputType).length; index++) {
         for (const key of stats) {
-        
+
             let inputElt = statblocks[index].querySelector(`input[data-stat="${key}"]`);
             if (inputElt) {
                 inputElt.addEventListener("input", () => onInputStat(key, inputElt, index));
             }
         }
         levelElt = statblocks[index].querySelector(`input[data-stat = level]`);
-        if (levelElt){
+        if (levelElt) {
             levelElt.addEventListener("input", () => calculatePlayerStats());
 
-        } 
+        }
         signatureElt = statblocks[index].querySelector(`input[data-stat = signature]`);
-        if (signatureElt){
+        if (signatureElt) {
             signatureElt.addEventListener("input", () => calculatePlayerStats());
         }
+
+        gradeElt = statblocks[index].querySelector(`input[data-stat=grade]`);
+        if (gradeElt){
+            gradeElt.addEventListener("input", () => onBeastGradeChange(index));
+        }
     }
+
+
 }
 
 
@@ -105,7 +115,7 @@ function onInputStat(stat, uiElt, step) {
     console.log(uiElt);
     console.log(step);
     console.log(statObjects[step]);
-    if(!statObjects[step]){
+    if (!statObjects[step]) {
         return;
     }
     statObjects[step][stat] = uiElt.value;
@@ -135,13 +145,13 @@ function selectInput(monster, num, isCharacter) {//Set input to the selected sug
 
     if (isCharacter) {
         if (num == 1) {
-            character1 = monster;
+            character1 = { ...monster };
             inputBoxCharacter1.value = monster.name;
             resultsBoxCharacter1.innerHTML = '';
             statObjects[statInputType.character1] = monster;
             updateMonsterStat(character1, characterStat1);
         } else if (num == 2) {
-            character2 = monster;
+            character2 = { ...monster };
             inputBoxCharacter2.value = monster.name;
             resultsBoxCharacter2.innerHTML = '';
             statObjects[statInputType.character2] = monster;
@@ -149,17 +159,19 @@ function selectInput(monster, num, isCharacter) {//Set input to the selected sug
         }
     } else {
         if (num == 1) {
-            beast1 = monster;
+            beast1 = { ...monster };
             inputBoxBeast1.value = monster.name;
             resultsBoxBeast1.innerHTML = '';
             statObjects[statInputType.beast1] = monster;
-            updateMonsterStat(beast1, beastStat1);
+            const inputGrade = beastStat1.querySelector(`input[data-stat="grade"]`);
+            updateMonsterStat(beast1, beastStat1, inputGrade.value);
         } else if (num == 2) {
-            beast2 = monster;
+            beast2 = { ...monster };
             inputBoxBeast2.value = monster.name;
             resultsBoxBeast2.innerHTML = '';
             statObjects[statInputType.beast2] = monster;
-            updateMonsterStat(beast2, beastStat2);
+            const inputGrade = beastStat2.querySelector(`input[data-stat="grade]`);
+            updateMonsterStat(beast2, beastStat2, inputGrade.value);
 
         }
     }
@@ -169,10 +181,35 @@ function fetchMonster(name) {
     return beastArray.find((monster) => monster.name == name);
 }
 
-function updateMonsterStat(monster, displayUI) {
+function grow(s, grade) {//grow function use to calculate monster stat as described in wiki
+    return Math.floor(s * (100 + 2 * Math.min(grade, 5)) / 100);
+}
+
+function onBeastGradeChange(inputType){
+    
+    if (inputType == statInputType.beast1){
+        const newBeast = fetchMonster(beast1.name);
+        beast1 = {... newBeast};
+        const inputGrade = beastStat1.querySelector(`input[data-stat="grade"]`);
+
+        updateMonsterStat(beast1, beastStat1, inputGrade.value);
+    }else if (inputType == statInputType.beast2){
+        const newBeast = fetchMonster(beast2.name);
+        beast2 = {... newBeast};
+        const inputGrade = beastStat2.querySelector(`input[data-stat="grade"]`);
+
+        updateMonsterStat(beast2, beastStat2, inputGrade.value);
+    }
+
+}
+
+function updateMonsterStat(monster, displayUI, grade = 0) {
     for (let stat in monster) {
         let input = displayUI.querySelector(`input[data-stat="${stat}"]`);
         if (input) {
+            if (grade > 0) {
+                monster[stat] = grow(monster[stat], grade);
+            }
             input.value = monster[stat];
         }
     }
