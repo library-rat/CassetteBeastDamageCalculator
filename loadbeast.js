@@ -279,7 +279,7 @@ function calculatePlayerStats() {
         let signature;
         let temp = characterStat1.querySelector(`input[data-stat=level]`);
         if (temp) {
-            level = temp.value;
+            level = parseInt(temp.value);
         }
         temp = characterStat1.querySelector(`input[data-stat=signature]`);
         if (temp) {
@@ -301,7 +301,7 @@ function calculatePlayerStats() {
         let signature;
         let temp = characterStat2.querySelector(`input[data-stat=level]`);
         if (temp) {
-            level = temp.value;
+            level = parseInt(temp.value);
         }
         temp = characterStat2.querySelector(`input[data-stat=signature]`);
         if (temp) {
@@ -311,7 +311,7 @@ function calculatePlayerStats() {
         for (const key of stats) {
             let input = totalStat2.querySelector(`input[data-stat="${key}"]`);
 
-            const calculatedValue = Math.floor(((character2[key] * (1 + 0.1 * signature) * beast2[key] * (level + 33)) / 5000) + 5);
+            const calculatedValue = Math.floor((character2[key] * (1 + 0.1 * signature) * beast2[key] * (level + 33)) / 5000) + 5;
             input.value = calculatedValue;
             stat2[key] = calculatedValue;
         }
