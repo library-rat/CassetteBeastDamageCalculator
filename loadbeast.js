@@ -32,6 +32,8 @@ const inputBoxBeast2 = document.getElementById("input-box-beast2");//input for c
 const beastStat2 = document.getElementById("beast2-stat")//Stats of the player
 const totalStat2 = document.getElementById("total2-stat")//Total Stat of player1
 
+const possibleTypes = ["beast", "air", "astral", "earth", "fire", "ice", "lightning", "metal", "plant", "plastic", "poison", "water", "glass", "glitter"];
+
 const statInputType = {
     character1: 0,
     character2: 1,
@@ -79,8 +81,12 @@ function initializeListeners() {
         }
 
         gradeElt = statblocks[index].querySelector(`input[data-stat=grade]`);
-        if (gradeElt){
+        if (gradeElt) {
             gradeElt.addEventListener("input", () => onBeastGradeChange(index));
+        }
+        typeElt = statblocks[index].querySelector(`input[data-stat=type]`);
+        if (typeElt) {
+            typeElt.addEventListener("input", () => onInputTypeText(statblocks[index], index));
         }
     }
 
@@ -104,17 +110,35 @@ function onInputText(inputBox, resultsBox, isCharacter) {//when a character is t
         }
     }
     display(result, resultsBox, isCharacter);
-    console.log("character1 :" + JSON.stringify(character1));
-    console.log("beast1 :" + JSON.stringify(beast1));
-    console.log("character2 :" + JSON.stringify(character2));
-    console.log("beast2 :" + JSON.stringify(beast2));
+}
+
+function onInputTypeText(inputStats, num) {
+    const text = inputStats.querySelector("input[data-stat=type]");
+    const resultBox = inputStats.querySelector(".result-box-type");
+
+    const results = possibleTypes.filter(function (element) {
+        return element.toLowerCase().includes(text.value);
+    })
+
+    resultBox.innerHTML = '';
+    results.forEach((element) => {
+        const li = document.createElement("li");
+        li.textContent = element;
+        li.addEventListener("click", () => {
+            text.value = element;
+            resultBox.innerHTML = "";
+            if (num == statInputType.beast1 && beast1) {
+                beast1["type"] = element;
+            } else if (num == statInputType.beast2 && beast2) {
+                beast2["type"] = element;
+            }
+            calculateDamage();
+        })
+        resultBox.appendChild(li);
+    })
 }
 
 function onInputStat(stat, uiElt, step) {
-    console.log(stat);
-    console.log(uiElt);
-    console.log(step);
-    console.log(statObjects[step]);
     if (!statObjects[step]) {
         return;
     }
@@ -185,17 +209,17 @@ function grow(s, grade) {//grow function use to calculate monster stat as descri
     return Math.floor(s * (100 + 2 * Math.min(grade, 5)) / 100);
 }
 
-function onBeastGradeChange(inputType){
-    
-    if (inputType == statInputType.beast1){
+function onBeastGradeChange(inputType) {
+
+    if (inputType == statInputType.beast1) {
         const newBeast = fetchMonster(beast1.name);
-        beast1 = {... newBeast};
+        beast1 = { ...newBeast };
         const inputGrade = beastStat1.querySelector(`input[data-stat="grade"]`);
 
         updateMonsterStat(beast1, beastStat1, inputGrade.value);
-    }else if (inputType == statInputType.beast2){
+    } else if (inputType == statInputType.beast2) {
         const newBeast = fetchMonster(beast2.name);
-        beast2 = {... newBeast};
+        beast2 = { ...newBeast };
         const inputGrade = beastStat2.querySelector(`input[data-stat="grade"]`);
 
         updateMonsterStat(beast2, beastStat2, inputGrade.value);
@@ -204,13 +228,18 @@ function onBeastGradeChange(inputType){
 }
 
 function updateMonsterStat(monster, displayUI, grade = 0) {
+    const statsBattle = ["maxHP", "mAtk", "mDef", "rAtk", "rDef", "speed"];
     for (let stat in monster) {
         let input = displayUI.querySelector(`input[data-stat="${stat}"]`);
         if (input) {
-            if (grade > 0) {
-                monster[stat] = grow(monster[stat], grade);
+            if (statsBattle.includes(stat)) {
+                if (grade > 0) {
+                    monster[stat] = grow(monster[stat], grade);
+                }
+                input.value = monster[stat];
+            }else{
+                input.value = monster[stat];
             }
-            input.value = monster[stat];
         }
     }
     calculatePlayerStats();
