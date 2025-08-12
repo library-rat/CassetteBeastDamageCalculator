@@ -113,29 +113,42 @@ function onInputText(inputBox, resultsBox, isCharacter) {//when a character is t
 }
 
 function onInputTypeText(inputStats, num) {
+
     const text = inputStats.querySelector("input[data-stat=type]");
     const resultBox = inputStats.querySelector(".result-box-type");
+    if (text == "") {
+        resultBox.innerHTML = "";
+    } else if (possibleTypes.includes(text.value)) {
+        resultBox.innerHTML = "";
+        if (num == statInputType.beast1 && beast1) {
+            beast1["type"] = text.value;
+        } else if (num == statInputType.beast2 && beast2) {
+            beast2["type"] = text.value;
+        }
 
-    const results = possibleTypes.filter(function (element) {
-        return element.toLowerCase().includes(text.value);
-    })
+    } else {
 
-    resultBox.innerHTML = '';
-    results.forEach((element) => {
-        const li = document.createElement("li");
-        li.textContent = element;
-        li.addEventListener("click", () => {
-            text.value = element;
-            resultBox.innerHTML = "";
-            if (num == statInputType.beast1 && beast1) {
-                beast1["type"] = element;
-            } else if (num == statInputType.beast2 && beast2) {
-                beast2["type"] = element;
-            }
-            calculateDamage();
+        const results = possibleTypes.filter(function (element) {
+            return element.toLowerCase().includes(text.value);
         })
-        resultBox.appendChild(li);
-    })
+
+        resultBox.innerHTML = '';
+        results.forEach((element) => {
+            const li = document.createElement("li");
+            li.textContent = element;
+            li.addEventListener("click", () => {
+                text.value = element;
+                resultBox.innerHTML = "";
+                if (num == statInputType.beast1 && beast1) {
+                    beast1["type"] = element;
+                } else if (num == statInputType.beast2 && beast2) {
+                    beast2["type"] = element;
+                }
+                calculateDamage();
+            })
+            resultBox.appendChild(li);
+        })
+    }
 }
 
 function onInputStat(stat, uiElt, step) {
@@ -237,7 +250,7 @@ function updateMonsterStat(monster, displayUI, grade = 0) {
                     monster[stat] = grow(monster[stat], grade);
                 }
                 input.value = monster[stat];
-            }else{
+            } else {
                 input.value = monster[stat];
             }
         }
