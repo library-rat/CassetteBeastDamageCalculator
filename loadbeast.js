@@ -185,13 +185,13 @@ function selectInput(monster, num, isCharacter) {//Set input to the selected sug
             character1 = { ...monster };
             inputBoxCharacter1.value = monster.name;
             resultsBoxCharacter1.innerHTML = '';
-            statObjects[statInputType.character1] = monster;
+            statObjects[statInputType.character1] = character1;
             updateMonsterStat(character1, characterStat1);
         } else if (num == 2) {
             character2 = { ...monster };
             inputBoxCharacter2.value = monster.name;
             resultsBoxCharacter2.innerHTML = '';
-            statObjects[statInputType.character2] = monster;
+            statObjects[statInputType.character2] = character2;
             updateMonsterStat(character2, characterStat2);
         }
     } else {
@@ -199,15 +199,15 @@ function selectInput(monster, num, isCharacter) {//Set input to the selected sug
             beast1 = { ...monster };
             inputBoxBeast1.value = monster.name;
             resultsBoxBeast1.innerHTML = '';
-            statObjects[statInputType.beast1] = monster;
+            statObjects[statInputType.beast1] = beast1;
             const inputGrade = beastStat1.querySelector(`input[data-stat="grade"]`);
             updateMonsterStat(beast1, beastStat1, inputGrade.value);
         } else if (num == 2) {
             beast2 = { ...monster };
             inputBoxBeast2.value = monster.name;
             resultsBoxBeast2.innerHTML = '';
-            statObjects[statInputType.beast2] = monster;
-            const inputGrade = beastStat2.querySelector(`input[data-stat="grade]`);
+            statObjects[statInputType.beast2] = beast2;
+            const inputGrade = beastStat2.querySelector(`input[data-stat="grade"]`);
             updateMonsterStat(beast2, beastStat2, inputGrade.value);
 
         }
