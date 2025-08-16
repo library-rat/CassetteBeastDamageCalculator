@@ -32,7 +32,7 @@ const inputBoxBeast2 = document.getElementById("input-box-beast2");//input for c
 const beastStat2 = document.getElementById("beast2-stat")//Stats of the player
 const totalStat2 = document.getElementById("total2-stat")//Total Stat of player1
 
-const possibleTypes = ["beast", "air", "astral", "earth", "fire", "ice", "lightning", "metal", "plant", "plastic", "poison", "water", "glass", "glitter"];
+const possibleTypes = ["Beast", "Air", "Astral", "Earth", "Fire", "Ice", "Lightning", "Metal", "Plant", "Plastic", "Poison", "Water", "Glass", "Glitter"];
 
 const statInputType = {
     character1: 0,

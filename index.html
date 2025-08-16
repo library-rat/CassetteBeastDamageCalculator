@@ -35,7 +35,7 @@
               <input type="number" value="0" data-stat="rAtk">
               <input type="number" value="0" data-stat="rDef">
               <input type="number" value="0" data-stat="speed">
-              <div class="signature"> 
+              <div class="signature">
                 <label>Is signature ?</label>
                 <input type="checkbox" value="0" data-stat="signature">
               </div>
@@ -58,7 +58,7 @@
                 <label>Grade :</label>
                 <input type="number" value="0" min="0" max="5" data-stat="grade">
               </div>
-              <input type="text" data-stat="type">
+              <input type="text" data-stat="type" placeholder="type" style="text-transform: capitalize;">
               <div class="result-box-type">
                 <ul></ul>
               </div>
@@ -113,7 +113,7 @@
               <input type="number" value="0" data-stat="rAtk">
               <input type="number" value="0" data-stat="rDef">
               <input type="number" value="0" data-stat="speed">
-              <div class="signature"> 
+              <div class="signature">
                 <label>Is signature ?</label>
                 <input type="checkbox" value="0" data-stat="signature">
               </div>
@@ -136,7 +136,7 @@
                 <label>Grade :</label>
                 <input type="number" value="0" min="0" max="5" data-stat="grade">
               </div>
-              <input type="text" data-stat="type">
+              <input type="text" data-stat="type" placeholder="type" style="text-transform: capitalize;">
               <div class="result-box-type">
                 <ul></ul>
               </div>
@@ -167,10 +167,25 @@
     </div>
   </div>
   <div class="row">
-  <div class="col-md-6">
-          <p class="title">Attack</p>
-    
-  </div>
+    <div class="col-md-6">
+      <p class="title">Attack</p>
+
+      <div>
+        <label>Power : </label>
+        <input type="number" data-stat="power">
+      </div>
+
+      <input type="text" data-stat="type" placeholder="type" style="text-transform: capitalize;">
+      <div class="result-box-type">
+        <ul></ul>
+      </div>
+
+      <div>
+        <label>Hit Number : </label>
+        <input type="number" data-stat="hitNb">
+      </div>
+
+    </div>
   </div>
   <script src="loadbeast.js"></script>
 </body>
