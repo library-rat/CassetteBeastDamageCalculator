@@ -9,7 +9,7 @@
       "name": { "type": "string" },
       "type": {
         "type": "string",
-        "enum": ["beast", "air", "astral", "earth", "fire", "ice", "lightning", "metal", "plant", "plastic", "poison", "water", "glass", "glitter"]
+        "enum": ["Beast", "Air", "Astral", "Earth", "Fire", "Ice", "Lightning", "Metal", "Plant", "Plastic", "Poison", "Water", "Glass", "Glitter"]
       },
       "maxHP": { "type": "integer"},
       "mAtk": { "type": "integer"},

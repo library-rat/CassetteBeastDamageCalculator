@@ -9,12 +9,12 @@ function toJSON(){
         beast["#"] = parseInt( elt.children[2].innerHTML.slice(1));
         beast["name"] = elt.children[1].children[0].innerHTML;
         beast["type"] = elt.children[3].children[0].children[0].innerHTML
-        beast["maxHP"] = elt.children[4].innerHTML;
-        beast["mATK"] = elt.children[5].innerHTML;
-        beast["mDef"] = elt.children[6].innerHTML;
-        beast["rAtk"] = elt.children[7].innerHTML;
-        beast["rDef"] = elt.children[8].innerHTML;
-        beast["speed"] = elt.children[9].innerHTML;
+        beast["maxHP"] = parseInt(elt.children[4].innerHTML);
+        beast["mAtk"] = parseInt(elt.children[5].innerHTML);
+        beast["mDef"] = parseInt(elt.children[6].innerHTML);
+        beast["rAtk"] = parseInt(elt.children[7].innerHTML);
+        beast["rDef"] = parseInt(elt.children[8].innerHTML);
+        beast["speed"] = parseInt(elt.children[9].innerHTML);
 
         data.push(beast);
     }
