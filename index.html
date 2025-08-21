@@ -167,12 +167,12 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6" id="input-attack">
       <p class="title">Attack</p>
 
       <div>
         <label>Power : </label>
-        <input type="number" data-stat="power">
+        <input type="number" data-stat="power" value=0>
       </div>
 
       <input type="text" data-stat="type" placeholder="type" style="text-transform: capitalize;">
@@ -182,7 +182,33 @@
 
       <div>
         <label>Hit Number : </label>
-        <input type="number" data-stat="hitNb">
+        <input type="number" data-stat="hitNb" value=1 >
+      </div>
+
+      <div>
+        <label>Attacking stat :</label>
+        <select id="attack-stat">
+          <option value="">-- Choose the stat used by attacking beast--</option>
+          <option value="maxHP">Max HP</option>
+          <option value="mAtk">M. Atk</option>
+          <option value="mDef">M. Def</option>
+          <option value="rAtk">R. Atk</option>
+          <option value="rDef">R. Def</option>
+          <option value="speed">Speed</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Defensive stat :</label>
+        <select id="defend-stat">
+          <option value="">-- Choose the stat used by defendin beast--</option>
+          <option value="maxHP">Max HP</option>
+          <option value="mAtk">M. Atk</option>
+          <option value="mDef">M. Def</option>
+          <option value="rAtk">R. Atk</option>
+          <option value="rDef">R. Def</option>
+          <option value="speed">Speed</option>
+        </select>
       </div>
 
     </div>

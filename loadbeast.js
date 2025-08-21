@@ -31,19 +31,55 @@ const resultsBoxBeast2 = document.querySelector(".result-box-beast2"); //autocom
 const inputBoxBeast2 = document.getElementById("input-box-beast2");//input for character
 const beastStat2 = document.getElementById("beast2-stat")//Stats of the player
 const totalStat2 = document.getElementById("total2-stat")//Total Stat of player1
+const inputAttack = document.getElementById("input-attack");//Input field for attack
 
 const possibleTypes = ["Beast", "Air", "Astral", "Earth", "Fire", "Ice", "Lightning", "Metal", "Plant", "Plastic", "Poison", "Water", "Glass", "Glitter"];
 
+const typeAdvantage = { //array of type advantage, key as attacking type 
+    "Beast": ["Glass"],
+    "Air": ["Fire", "Plant", "Glass"],
+    "Astral": ["Air", "Earth", "Fire", "Water"],
+    "Earth": ["Fire", "Lightning", "Plastic"],
+    "Fire": ["Metal", "Plant", "Poison"],
+    "Ice": ["Air"],
+    "Lightning": ["Air", "Ice", "Metal", "Water"],
+    "Metal": ["Astral", "Earth", "Ice", "Glass"],
+    "Plant": ["Earth", "Lightning", "Water"],
+    "Plastic": ["Astral", "Lightning"],
+    "Poison": ["Astral", "Plant"],
+    "Water": ["Earth", "Fire", "Metal"],
+    "Glass": ["Lightning"],
+    "Glitter": []
+}
+
+const typeDisadvantage = {
+    "Beast": [],
+    "Air": ["Astral", "Lightning"],
+    "Astral": ["Astral"],
+    "Earth": ["Astral"],
+    "Fire": ["Astral", "Earth", "Water"],
+    "Ice": ["Lightning"],
+    "Lightning": ["Plastic"],
+    "Metal": ["Lightning"],
+    "Plant": ["Fire", "Poison"],
+    "Plastic": ["Fire"],
+    "Poison": ["Earth", "Fire", "Metal"],
+    "Water": ["Astral", "Ice", "Lightning", "Plant"],
+    "Glass": [],
+    "Glitter": []
+
+}
 const statInputType = {
     character1: 0,
     character2: 1,
     beast1: 2,
     beast2: 3,
     total1: 4,
-    total2: 5
+    total2: 5,
+    attack : 6
 }
 
-const statblocks = [characterStat1, characterStat2, beastStat1, beastStat2, totalStat1, totalStat2]; //elements inside should be UI matching the statInputType
+const statblocks = [characterStat1, characterStat2, beastStat1, beastStat2, totalStat1, totalStat2, inputAttack]; //elements inside should be UI matching the statInputType
 const statObjects = [character1, character2, beast1, beast2, stat1, stat2]; //elements inside should be the objects containing the stats
 
 
@@ -89,7 +125,7 @@ function initializeListeners() {
             typeElt.addEventListener("input", () => onInputTypeText(statblocks[index], index));
         }
     }
-
+    
 
 }
 
@@ -277,11 +313,11 @@ function calculatePlayerStats() {
 
         let level;
         let signature;
-        let temp = characterStat1.querySelector(`input[data-stat=level]`);
+        let temp = characterStat1.querySelector(`input[data-stat="level"]`);
         if (temp) {
             level = parseInt(temp.value);
         }
-        temp = characterStat1.querySelector(`input[data-stat=signature]`);
+        temp = characterStat1.querySelector(`input[data-stat="signature"]`);
         if (temp) {
             signature = temp.checked;
         }
@@ -299,11 +335,11 @@ function calculatePlayerStats() {
 
         let level;
         let signature;
-        let temp = characterStat2.querySelector(`input[data-stat=level]`);
+        let temp = characterStat2.querySelector(`input[data-stat="level"]`);
         if (temp) {
             level = parseInt(temp.value);
         }
-        temp = characterStat2.querySelector(`input[data-stat=signature]`);
+        temp = characterStat2.querySelector(`input[data-stat="signature"]`);
         if (temp) {
             signature = temp.checked;
         }
@@ -319,5 +355,32 @@ function calculatePlayerStats() {
 }
 
 function calculateDamage() {
+    let temp = inputAttack.querySelector(`input[data-stat="power"]`);
+
+    console.assert(temp, "unable to get input attack to calculate damage");
+    const power = parseInt(temp.value);
+
+    temp = document.getElementById("attack-stat");
+    console.assert(temp && beast1[temp.value], "unable to get attack stat to calculate damage");
+    const attack = parseInt(beast1[temp.value]);
+
+    temp = document.getElementById("defend-stat");
+    console.asser(temp && beast2[temp.value], "unable to get defense stat to calculate damage");
+    const defend = parseInt(beast2[temp.value]);
+
+    temp = characterStat1.querySelector(`input[data-stat="level"]`);
+    console.assert(temp, "unable to get level to calculate damage");
+    const level = parseInt(temp.value);
+    const minRandom = 85;
+    const maxRandom = 100;
+    temp = inputAttack.querySelector("input[data-stat=type]");
+    console.assert(temp, "unable to get beast stat to calculate damage");
+    const stab = (beast1["type"] == temp.value);
+    const advantageDisadvantage = (typeAdvantage[beast1["type"]].includes(beast2["type"])) - (typeDisadvantage[beast1["type"]].includes(beast2["type"]) );
+    const critMultiplier = 1.5;
+    temp = inputAttack.querySelector("input[data-stat=hitNb]");
+    console.assert(temp, "unable to get number of hits to calculate damage");
+    const numberOfHit = parseInt(temp.value);
+
 
 }
