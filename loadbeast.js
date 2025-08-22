@@ -32,6 +32,7 @@ const inputBoxBeast2 = document.getElementById("input-box-beast2");//input for c
 const beastStat2 = document.getElementById("beast2-stat")//Stats of the player
 const totalStat2 = document.getElementById("total2-stat")//Total Stat of player1
 const inputAttack = document.getElementById("input-attack");//Input field for attack
+const outputBox = document.getElementById("output-box")
 
 const possibleTypes = ["Beast", "Air", "Astral", "Earth", "Fire", "Ice", "Lightning", "Metal", "Plant", "Plastic", "Poison", "Water", "Glass", "Glitter"];
 
@@ -352,6 +353,9 @@ function calculatePlayerStats() {
             stat2[key] = calculatedValue;
         }
     }
+    if (character1 && beast1 && character2 && beast2) {
+        calculateDamage();
+    }
 }
 
 function calculateDamage() {
@@ -361,12 +365,12 @@ function calculateDamage() {
     const power = parseInt(temp.value);
 
     temp = document.getElementById("attack-stat");
-    console.assert(temp && beast1[temp.value], "unable to get attack stat to calculate damage");
-    const attack = parseInt(beast1[temp.value]);
+    console.assert(temp && stat1[temp.value], "unable to get attack stat to calculate damage");
+    const attack = parseInt(stat1[temp.value]);
 
     temp = document.getElementById("defend-stat");
-    console.asser(temp && beast2[temp.value], "unable to get defense stat to calculate damage");
-    const defend = parseInt(beast2[temp.value]);
+    console.assert(temp && stat2[temp.value], "unable to get defense stat to calculate damage");
+    const defend = parseInt(stat2[temp.value]);
 
     temp = characterStat1.querySelector(`input[data-stat="level"]`);
     console.assert(temp, "unable to get level to calculate damage");
@@ -383,4 +387,11 @@ function calculateDamage() {
     const numberOfHit = parseInt(temp.value);
 
 
+    const minDamage = (power* attack/ defend*(level+37) /100 * minRandom/100 +1)* (1 + 0.2*stab) *(1.3**advantageDisadvantage);
+    const maxDamage = (power* attack/ defend*(level+37) /100 * maxRandom/100 +1)* (1 + 0.2*stab) *(1.3**advantageDisadvantage);
+
+    const  minDamageOutput = document.getElementById("output-min-damage");
+    minDamageOutput.innerHTML = minDamage;
+    const maxDamageOutput = document.getElementById("output-max-damage");
+    maxDamageOutput.innerHTML = maxDamage;
 }
