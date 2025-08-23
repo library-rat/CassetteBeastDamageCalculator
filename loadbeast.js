@@ -11,11 +11,13 @@ let stat2 = {};//reference to total stat on slot 2
 
 fetch('Beast.json') //load all the beasts
     .then((response) => response.json())
-    .then((json) => beastArray = json);
+    .then((json) => beastArray = json)
+    .then(() => {if(Array.isArray(characterArray)){initializeFields()} });
 
 fetch('Character.json')//load all the playable character
     .then((response) => response.json())
     .then((json) => characterArray = json)
+    .then(() => {if(Array.isArray(beastArray)){initializeFields()} });
 
 const resultsBoxCharacter1 = document.querySelector(".result-box-character1"); //autocompletion suggestions box
 const inputBoxCharacter1 = document.getElementById("input-box-character1"); //input for character
@@ -146,6 +148,12 @@ function initializeListeners() {
 
 }
 
+function initializeFields(){
+    selectInput(characterArray[0],1,true);
+    selectInput(characterArray[1],2,true);
+    selectInput(beastArray[20], 1, false);
+    selectInput(beastArray[1], 2, false);
+}
 
 
 function onInputText(inputBox, resultsBox, isCharacter) {//when a character is type on the input call the display funtion with the list suggestion
