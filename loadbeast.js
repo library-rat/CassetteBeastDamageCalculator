@@ -395,5 +395,9 @@ function calculateDamage() {
     const  expectedDamageOutput = document.getElementById("expected-damage");
     expectedDamageOutput.innerHTML = "Between " + (100 *minDamage/defendingHP).toFixed(2) +
     "% and " + (100 *maxDamage/defendingHP).toFixed(2) + "% ( " +
-    (minDamage).toFixed(0) + "hp/" + (maxDamage).toFixed(0) + "hp)" ;
+    (minDamage).toFixed(0) + "hp/" + (maxDamage).toFixed(0) + "hp)";
+    const critDamageOutput = document.getElementById("expected-damage-crit");
+    critDamageOutput.innerHTML ="If crit between " + (1.5 *100 *minDamage/defendingHP).toFixed(2) +
+    "% and " + (1.5 *100 *maxDamage/defendingHP).toFixed(2) + "% ( " +
+    (1.5*minDamage).toFixed(0) + "hp/" + (1.5*maxDamage).toFixed(0) + "hp)";
 }
