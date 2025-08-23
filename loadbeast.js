@@ -387,11 +387,13 @@ function calculateDamage() {
     const numberOfHit = parseInt(temp.value);
 
 
-    const minDamage = (power* attack/ defend*(level+37) /100 * minRandom/100 +1)* (1 + 0.2*stab) *(1.3**advantageDisadvantage);
-    const maxDamage = (power* attack/ defend*(level+37) /100 * maxRandom/100 +1)* (1 + 0.2*stab) *(1.3**advantageDisadvantage);
+    const minDamage = (power* attack/ defend*(level+37) /100 * minRandom/100 +1)* (1 + 0.2*stab) *(1.3**advantageDisadvantage) * numberOfHit;
+    const maxDamage = (power* attack/ defend*(level+37) /100 * maxRandom/100 +1)* (1 + 0.2*stab) *(1.3**advantageDisadvantage) *numberOfHit;
 
-    const  minDamageOutput = document.getElementById("output-min-damage");
-    minDamageOutput.innerHTML = minDamage;
-    const maxDamageOutput = document.getElementById("output-max-damage");
-    maxDamageOutput.innerHTML = maxDamage;
+    console.assert(stat2 && stat2["maxHP"], "unable to get total hp to calculate damage");
+    const defendingHP = stat2["maxHP"];
+    const  expectedDamageOutput = document.getElementById("expected-damage");
+    expectedDamageOutput.innerHTML = "Between " + (100 *minDamage/defendingHP).toFixed(2) +
+    "% and " + (100 *maxDamage/defendingHP).toFixed(2) + "% ( " +
+    (minDamage).toFixed(0) + "hp/" + (maxDamage).toFixed(0) + "hp)" ;
 }
