@@ -58,7 +58,7 @@ const typeDisadvantage = {
     "Air": ["Astral", "Lightning"],
     "Astral": ["Astral"],
     "Earth": ["Astral"],
-    "Fire": ["Astral", "Earth", "Water"],
+    "Fire": ["Astral", "Air", "Water"],
     "Ice": ["Lightning"],
     "Lightning": ["Plastic"],
     "Metal": ["Lightning"],
