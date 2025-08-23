@@ -396,7 +396,7 @@ function calculateDamage() {
     temp = inputAttack.querySelector("input[data-stat=type]");
     console.assert(temp, "unable to get beast stat to calculate damage");
     const stab = (beast1["type"] == temp.value);
-    const advantageDisadvantage = (typeAdvantage[beast1["type"]].includes(beast2["type"])) - (typeDisadvantage[beast1["type"]].includes(beast2["type"]) );
+    const advantageDisadvantage = (typeAdvantage[temp.value].includes(beast2["type"])) - (typeDisadvantage[temp.value].includes(beast2["type"]) );
     const critMultiplier = 1.5;
     temp = inputAttack.querySelector("input[data-stat=hitNb]");
     console.assert(temp, "unable to get number of hits to calculate damage");
