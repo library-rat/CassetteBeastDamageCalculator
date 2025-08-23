@@ -107,24 +107,40 @@ function initializeListeners() {
                 inputElt.addEventListener("input", () => onInputStat(key, inputElt, index));
             }
         }
-        levelElt = statblocks[index].querySelector(`input[data-stat = level]`);
+        let levelElt = statblocks[index].querySelector(`input[data-stat = level]`);
         if (levelElt) {
             levelElt.addEventListener("input", () => calculatePlayerStats());
 
         }
-        signatureElt = statblocks[index].querySelector(`input[data-stat = signature]`);
+        let signatureElt = statblocks[index].querySelector(`input[data-stat = signature]`);
         if (signatureElt) {
             signatureElt.addEventListener("input", () => calculatePlayerStats());
         }
 
-        gradeElt = statblocks[index].querySelector(`input[data-stat=grade]`);
+        let gradeElt = statblocks[index].querySelector(`input[data-stat=grade]`);
         if (gradeElt) {
             gradeElt.addEventListener("input", () => onBeastGradeChange(index));
         }
-        typeElt = statblocks[index].querySelector(`input[data-stat=type]`);
+        let typeElt = statblocks[index].querySelector(`input[data-stat=type]`);
         if (typeElt) {
             typeElt.addEventListener("input", () => onInputTypeText(statblocks[index], index));
         }
+        let powerElt = statblocks[index].querySelector(`input[data-stat=power]`);
+        if(powerElt){
+            powerElt.addEventListener("input", () => calculateDamage());
+        }
+        let hitNbElt = statblocks[index].querySelector(`input[data-stat=hitNb]`);
+        if(hitNbElt){
+            hitNbElt.addEventListener("input", () => calculateDamage());
+        }        
+    }
+    let atkStatElt = document.getElementById("attack-stat");
+    if(atkStatElt){
+        atkStatElt.addEventListener("change", () => calculateDamage());
+    }
+    let defStatElt = document.getElementById("defend-stat");
+    if(defStatElt){
+        defStatElt.addEventListener("change", () => calculateDamage());
     }
     
 
@@ -393,11 +409,18 @@ function calculateDamage() {
     console.assert(stat2 && stat2["maxHP"], "unable to get total hp to calculate damage");
     const defendingHP = stat2["maxHP"];
     const  expectedDamageOutput = document.getElementById("expected-damage");
+    const critDamageOutput = document.getElementById("expected-damage-crit");
+
+    if(!isNaN(minDamage) && !isNaN(maxDamage) && !isNaN(defendingHP)){
     expectedDamageOutput.innerHTML = "Between " + (100 *minDamage/defendingHP).toFixed(2) +
     "% and " + (100 *maxDamage/defendingHP).toFixed(2) + "% ( " +
     (minDamage).toFixed(0) + "hp/" + (maxDamage).toFixed(0) + "hp)";
-    const critDamageOutput = document.getElementById("expected-damage-crit");
+
     critDamageOutput.innerHTML ="If crit between " + (1.5 *100 *minDamage/defendingHP).toFixed(2) +
     "% and " + (1.5 *100 *maxDamage/defendingHP).toFixed(2) + "% ( " +
     (1.5*minDamage).toFixed(0) + "hp/" + (1.5*maxDamage).toFixed(0) + "hp)";
+    }else{
+        expectedDamageOutput.innerHTML ="More information needed for calculation";
+        critDamageOutput.innerHTML = "";
+    }
 }
